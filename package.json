@@ -1,0 +1,23 @@
+{
+  "name": "theming-engine",
+  "version": "0.0.1",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun run src/index.ts",
+    "test": "bun test",
+    "clean": "rm -rf dist",
+    "validate": "bun run src/validate.ts"
+  },
+  "dependencies": {
+    "style-dictionary": "^4.2.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
