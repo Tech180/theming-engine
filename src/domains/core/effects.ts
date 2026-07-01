@@ -81,4 +81,54 @@ export default {
       $description: 'Surface blur (from react-website glass mixin)',
     },
   },
+
+  zindex: {
+    hide:     { $value: -1,   $type: 'zIndex', $description: 'Below content layer' },
+    base:     { $value: 1,    $type: 'zIndex', $description: 'Default relative content layer' },
+    dropdown: { $value: 100,  $type: 'zIndex', $description: 'Dropdowns, navigation menus' },
+    sticky:   { $value: 200,  $type: 'zIndex', $description: 'Sticky navigation bars, headers' },
+    overlay:  { $value: 1000, $type: 'zIndex', $description: 'Full-screen overlay/backdrops' },
+    modal:    { $value: 1100, $type: 'zIndex', $description: 'Modal dialogues' },
+    toast:    { $value: 9999, $type: 'zIndex', $description: 'Global notification alerts' },
+  },
+
+  overlay: {
+    backdrop:     { $value: 'rgba(0, 0, 0, 0.4)',   $type: 'color', $description: 'Standard modal backdrop overlay (light mode)' },
+    backdropDark: { $value: 'rgba(0, 0, 0, 0.6)',   $type: 'color', $description: 'Dark-mode modal backdrop overlay' },
+    glass:        { $value: 'rgba(255, 255, 255, 0.05)', $type: 'color', $description: 'Standard glass panel tint' },
+    glassDark:    { $value: 'rgba(0, 0, 0, 0.2)',   $type: 'color', $description: 'Dark-mode glass panel tint' },
+  },
+
+  animation: {
+    'fade-in': {
+      $value: 'fade-in var(--duration-slow) ease forwards',
+      $type: 'animation',
+      $description: 'Fade in animation shorthand'
+    },
+    'slide-up': {
+      $value: 'slide-up var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1) forwards',
+      $type: 'animation',
+      $description: 'Slide up animation shorthand'
+    },
+    'scale-in': {
+      $value: 'scale-in var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+      $type: 'animation',
+      $description: 'Scale in animation shorthand'
+    },
+    shimmer: {
+      $value: 'shimmer 1.5s infinite linear',
+      $type: 'animation',
+      $description: 'Shimmer skeleton loader animation shorthand'
+    },
+    'slide-down': {
+      $value: 'slide-down var(--duration-normal) ease forwards',
+      $type: 'animation',
+      $description: 'Slide down animation shorthand'
+    },
+    rotation: {
+      $value: 'rotation var(--duration-slow) linear infinite',
+      $type: 'animation',
+      $description: 'Spin/rotation loader animation shorthand'
+    }
+  },
 } satisfies TokenGroup;

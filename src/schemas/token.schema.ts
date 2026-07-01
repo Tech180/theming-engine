@@ -20,6 +20,8 @@ const tokenTypeEnum = z.enum([
   'cubicBezier',
   'shadow',
   'gradient',
+  'zIndex',
+  'animation',
 ]);
 
 /* -----------------------------------------

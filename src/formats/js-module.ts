@@ -17,7 +17,7 @@ export function jsModuleFormat({ dictionary, file }: FormatFnArguments) {
     .map((token: TransformedToken) => {
       const name = token.name.replace(/\./g, '-');
       const val = token.$value ?? token.value;
-      const value = typeof val === 'number' ? val : `'${val}'`;
+      const value = typeof val === 'number' ? val : JSON.stringify(val);
       return `  '${name}': ${value},`;
     })
     .join('\n');

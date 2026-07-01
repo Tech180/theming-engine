@@ -17,7 +17,8 @@ export interface DesignToken {
     | 'duration'
     | 'cubicBezier'
     | 'shadow'
-    | 'gradient';
+    | 'gradient'
+    | 'zIndex';
 
   /** Human-readable description of the token's purpose */
   $description?: string;

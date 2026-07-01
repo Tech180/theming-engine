@@ -184,6 +184,20 @@ describe('Theme Files — Contract Compliance', () => {
     'mystic/dark',
     'burnt-forest/light',
     'burnt-forest/dark',
+    'halloween/light',
+    'halloween/dark',
+    'christmas/light',
+    'christmas/dark',
+    'valentines/light',
+    'valentines/dark',
+    'st-patricks/light',
+    'st-patricks/dark',
+    'earth-day/light',
+    'earth-day/dark',
+    'independence/light',
+    'independence/dark',
+    'thanksgiving/light',
+    'thanksgiving/dark',
   ];
 
   for (const themeFile of themeFiles) {

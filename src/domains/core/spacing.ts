@@ -30,4 +30,10 @@ export default {
     normal: { $value: '0.2s ease',  $type: 'duration', $description: 'Default transition (matches react-website $transition-speed)' },
     slow:   { $value: '0.25s ease', $type: 'duration', $description: 'Matches giftistry-react global transition' },
   },
+
+  duration: {
+    fast:   { $value: '0.15s', $type: 'duration', $description: 'Duration-only (no easing) for animation shorthands' },
+    normal: { $value: '0.2s',  $type: 'duration', $description: 'Duration-only (no easing) for animation shorthands' },
+    slow:   { $value: '0.25s', $type: 'duration', $description: 'Duration-only (no easing) for animation shorthands' },
+  },
 } satisfies TokenGroup;

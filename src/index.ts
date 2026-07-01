@@ -5,7 +5,9 @@ import { themedCssFormat } from './formats/themed-css';
 import { themedScssFormat } from './formats/themed-scss';
 import { jsModuleFormat } from './formats/js-module';
 import { androidColorsFormat, androidDimensFormat, androidFontDimensFormat } from './formats/android-xml';
+import { coreCssFormat } from './formats/core-css';
 import { validateAllTokens } from './validate';
+export { compileDynamicThemeCss } from './dynamic-compiler';
 
 /* =========================================
    Theming Engine — Build Orchestrator
@@ -15,7 +17,7 @@ import { validateAllTokens } from './validate';
    that share the same semantic key names.
    ========================================= */
 
-const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest'] as const;
+const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'valentines', 'st-patricks', 'earth-day', 'independence', 'halloween', 'thanksgiving', 'christmas'] as const;
 const APPEARANCES = ['light', 'dark'] as const;
 
 /** Shared hooks for all SD instances */
@@ -24,6 +26,24 @@ const sharedHooks = {
     'size/pxToRem': pxToRemTransform,
     'color/hexAlpha': hexAlphaTransform,
     'color/rgbaToHex': rgbaToHexTransform,
+    'name/themePrefix': {
+      type: 'name' as const,
+      transitive: false,
+      transform: (token: any) => {
+        const nameParts = [...token.path];
+        const isBrandToken = String(token.filePath ?? '').includes('brands/');
+        if (isBrandToken && nameParts[0] !== 'theme') {
+          nameParts.unshift('theme');
+        }
+        return nameParts
+          .map((part: string) =>
+            part
+              .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+              .toLowerCase()
+          )
+          .join('-');
+      },
+    },
   },
   formats: {
     'themed-css': themedCssFormat,
@@ -32,6 +52,7 @@ const sharedHooks = {
     'android/colors': androidColorsFormat,
     'android/dimens': androidDimensFormat,
     'android/fontDimens': androidFontDimensFormat,
+    'core-css': coreCssFormat,
   },
 };
 
@@ -50,7 +71,7 @@ const COMPONENT_SOURCES = [
   'src/domains/components/input.ts',
 ];
 
-async function build() {
+export async function build() {
   const startTime = performance.now();
 
   console.log('🚀 Building theming-engine...\n');
@@ -71,18 +92,18 @@ async function build() {
     source: CORE_SOURCES,
     platforms: {
       css: {
-        transformGroup: 'css',
+        transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
         buildPath: 'dist/css/',
         files: [
           {
             destination: 'variables.css',
-            format: 'css/variables',
+            format: 'core-css',
             options: { outputReferences: false },
           },
         ],
       },
       scss: {
-        transformGroup: 'scss',
+        transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
         buildPath: 'dist/scss/',
         files: [
           {
@@ -92,7 +113,7 @@ async function build() {
         ],
       },
       android: {
-        transformGroup: 'android',
+        transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem', 'color/hexAlpha', 'color/rgbaToHex'],
         buildPath: 'dist/android/',
         files: [
           {
@@ -128,7 +149,7 @@ async function build() {
         source: themeSources,
         platforms: {
           css: {
-            transformGroup: 'css',
+            transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
             buildPath: 'dist/css/',
             files: [
               {
@@ -140,7 +161,7 @@ async function build() {
             ],
           },
           scss: {
-            transformGroup: 'scss',
+            transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
             buildPath: 'dist/scss/',
             files: [
               {
@@ -170,7 +191,7 @@ async function build() {
       ],
       platforms: {
         android: {
-          transformGroup: 'android',
+          transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem', 'color/hexAlpha', 'color/rgbaToHex'],
           buildPath: 'dist/android/',
           files: [
             {
@@ -197,7 +218,7 @@ async function build() {
     ],
     platforms: {
       css: {
-        transformGroup: 'css',
+        transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
         buildPath: 'dist/css/',
         files: [
           {
@@ -209,7 +230,7 @@ async function build() {
         ],
       },
       scss: {
-        transformGroup: 'scss',
+        transforms: ['attribute/cti', 'name/themePrefix', 'size/pxToRem'],
         buildPath: 'dist/scss/',
         files: [
           {
@@ -255,7 +276,9 @@ async function build() {
   console.log('   📂 dist/android/ — Android resource XML');
 }
 
-build().catch((error) => {
-  console.error('Build failed:', error);
-  process.exit(1);
-});
+if (import.meta.main) {
+  build().catch((error) => {
+    console.error('Build failed:', error);
+    process.exit(1);
+  });
+}

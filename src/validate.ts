@@ -1,6 +1,13 @@
 import { ThemeContractSchema, validateTokenGroup } from './schemas/token.schema';
 import type { ValidationError } from './schemas/token.schema';
 
+export class TokenValidationError extends Error {
+  constructor(public errors: { file: string; errors: ValidationError[] }[]) {
+    super(`Token validation failed with ${errors.reduce((sum, e) => sum + e.errors.length, 0)} error(s).`);
+    this.name = 'TokenValidationError';
+  }
+}
+
 /* =========================================
    Token Validation Runner
    ========================================= */
@@ -17,6 +24,20 @@ const THEME_FILES = [
   { name: 'mystic/dark', path: './domains/brands/mystic/dark' },
   { name: 'burnt-forest/light', path: './domains/brands/burnt-forest/light' },
   { name: 'burnt-forest/dark', path: './domains/brands/burnt-forest/dark' },
+  { name: 'halloween/light', path: './domains/brands/halloween/light' },
+  { name: 'halloween/dark', path: './domains/brands/halloween/dark' },
+  { name: 'christmas/light', path: './domains/brands/christmas/light' },
+  { name: 'christmas/dark', path: './domains/brands/christmas/dark' },
+  { name: 'valentines/light', path: './domains/brands/valentines/light' },
+  { name: 'valentines/dark', path: './domains/brands/valentines/dark' },
+  { name: 'st-patricks/light', path: './domains/brands/st-patricks/light' },
+  { name: 'st-patricks/dark', path: './domains/brands/st-patricks/dark' },
+  { name: 'earth-day/light', path: './domains/brands/earth-day/light' },
+  { name: 'earth-day/dark', path: './domains/brands/earth-day/dark' },
+  { name: 'independence/light', path: './domains/brands/independence/light' },
+  { name: 'independence/dark', path: './domains/brands/independence/dark' },
+  { name: 'thanksgiving/light', path: './domains/brands/thanksgiving/light' },
+  { name: 'thanksgiving/dark', path: './domains/brands/thanksgiving/dark' },
 ] as const;
 
 /** Core domain file manifest */
@@ -113,7 +134,7 @@ export async function validateAllTokens(): Promise<void> {
       }
     }
     console.error('');
-    throw new Error(`Token validation failed with ${allErrors.reduce((sum, e) => sum + e.errors.length, 0)} error(s).`);
+    throw new TokenValidationError(allErrors);
   }
 
   console.log(`✅ All tokens valid! (${totalTokens} tokens across ${CORE_FILES.length + THEME_FILES.length} files)\n`);

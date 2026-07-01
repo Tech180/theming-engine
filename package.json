@@ -1,6 +1,6 @@
 {
   "name": "theming-engine",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "module": "src/index.ts",
   "type": "module",
   "private": true,
@@ -8,7 +8,8 @@
     "build": "bun run src/index.ts",
     "test": "bun test",
     "clean": "rm -rf dist",
-    "validate": "bun run src/validate.ts"
+    "validate": "bun run src/validate.ts",
+    "serve": "bun run src/server.ts"
   },
   "dependencies": {
     "style-dictionary": "^4.2.0",
