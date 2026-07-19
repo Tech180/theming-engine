@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Independence Theme — Dark Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 0 15px rgba(230, 57, 70, 0.25)',  $type: 'shadow' },
     radius:       { $value: '4px',                         $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(28, 37, 65, 0.8) 0%, rgba(11, 19, 43, 1) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('independence'), $type: 'color' },
   },
 } satisfies ThemeContract;

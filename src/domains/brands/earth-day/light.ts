@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Earth Day Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 4px 20px rgba(217, 116, 67, 0.08)', $type: 'shadow' },
     radius:       { $value: '16px',                        $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(46, 125, 50, 0.05) 0%, rgba(255, 255, 255, 0) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('earth-day'), $type: 'color' },
   },
 } satisfies ThemeContract;

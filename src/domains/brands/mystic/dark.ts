@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Mystic Theme — Dark Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 10px 30px rgba(0, 0, 0, 0.4)',  $type: 'shadow' },
     radius:       { $value: '12px',                             $type: 'dimension' },
     bgGradient:   { $value: 'radial-gradient(circle at top, rgba(46, 84, 59, 0.3) 0%, rgba(0, 0, 0, 0) 70%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('mystic'), $type: 'color' },
   },
 } satisfies ThemeContract;

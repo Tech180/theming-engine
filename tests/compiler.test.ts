@@ -23,9 +23,9 @@ describe('Dynamic Theme Compiler', () => {
 
     expect(css).toBeDefined();
     expect(css).toContain('[data-theme="custom-user-theme"][data-appearance="dark"]');
-    expect(css).toContain('--theme-primary: #ff00ff;');
-    expect(css).toContain('--theme-primary-hover: #cc00cc;');
-    expect(css).toContain('--theme-bg: #121212;');
+    expect(css).toContain('--theme-primary: #FF00FFFF;');
+    expect(css).toContain('--theme-primary-hover: #CC00CCFF;');
+    expect(css).toContain('--theme-bg: #121212FF;');
     expect(css).toContain('--theme-radius: 0.75rem;'); // Verify pxToRem works (12px -> 0.75rem)
     expect(css).toContain('--theme-bg-gradient: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);');
   });

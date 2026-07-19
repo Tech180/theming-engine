@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Neon Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 0 10px rgba(191, 85, 236, 0.2)', $type: 'shadow' },
     radius:       { $value: '4px',                            $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(26, 8, 46, 0.5) 0%, rgba(10, 2, 22, 0) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('neon'), $type: 'color' },
   },
 } satisfies ThemeContract;

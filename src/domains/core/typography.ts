@@ -23,6 +23,16 @@ export default {
       $type: 'fontFamily',
       $description: 'Body text font (from react-website)',
     },
+    ttydDisplay: {
+      $value: "'Mochiy Pop One', cursive",
+      $type: 'fontFamily',
+      $description: 'Paper Mario TTYD display font',
+    },
+    ttydBody: {
+      $value: "'Nunito', sans-serif",
+      $type: 'fontFamily',
+      $description: 'Paper Mario TTYD body font',
+    },
   },
 
   fontWeight: {

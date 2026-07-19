@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Thanksgiving Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 4px 20px rgba(230, 81, 0, 0.08)',   $type: 'shadow' },
     radius:       { $value: '8px',                         $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(230, 81, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('thanksgiving'), $type: 'color' },
   },
 } satisfies ThemeContract;

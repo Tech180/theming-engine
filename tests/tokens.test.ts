@@ -198,6 +198,22 @@ describe('Theme Files — Contract Compliance', () => {
     'independence/dark',
     'thanksgiving/light',
     'thanksgiving/dark',
+    'paper/light',
+    'paper/dark',
+    'paper-mario/light',
+    'paper-mario/dark',
+    'retro-80s/light',
+    'retro-80s/dark',
+    'pixel/light',
+    'pixel/dark',
+    'matrix/light',
+    'matrix/dark',
+    'terminal/light',
+    'terminal/dark',
+    'vaporwave/light',
+    'vaporwave/dark',
+    'arcade/light',
+    'arcade/dark',
   ];
 
   for (const themeFile of themeFiles) {

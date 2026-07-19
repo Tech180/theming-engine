@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    St. Patrick's Day Theme — Dark Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 0 15px rgba(0, 168, 107, 0.25)', $type: 'shadow' },
     radius:       { $value: '6px',                         $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(14, 48, 26, 0.8) 0%, rgba(8, 28, 15, 1) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('st-patricks'), $type: 'color' },
   },
 } satisfies ThemeContract;

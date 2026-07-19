@@ -22,6 +22,8 @@ const tokenTypeEnum = z.enum([
   'gradient',
   'zIndex',
   'animation',
+  'filter',
+  'transform',
 ]);
 
 /* -----------------------------------------
@@ -47,8 +49,8 @@ export const ColorTokenSchema = z.object({
 export const DimensionTokenSchema = z.object({
   $value: z.union([
     z.string().refine(
-      (val) => dimensionRegex.test(val) || val.startsWith('{'),
-      { message: 'Invalid dimension value. Expected number+unit (e.g., "16px", "1rem", "50%") or a token reference ({...}).' }
+      (val) => dimensionRegex.test(val) || /^-?\d+(\.\d+)?deg$/.test(val) || val === 'none' || val.startsWith('{'),
+      { message: 'Invalid dimension value. Expected number+unit (e.g., "16px", "1rem", "-2deg") or a token reference ({...}).' }
     ),
     z.number(),
   ]),
@@ -98,10 +100,30 @@ export const FontWeightTokenSchema = z.object({
 /** Duration token */
 export const DurationTokenSchema = z.object({
   $value: z.string().refine(
-    (val) => /^\d+(\.\d+)?(ms|s)$/.test(val) || val.includes('ease') || val.startsWith('{'),
+    (val) => /^\d+(\.\d+)?(ms|s)$/.test(val) || val.includes('ease') || val.includes('cubic-bezier') || val.startsWith('{'),
     { message: 'Invalid duration value.' }
   ),
   $type: z.literal('duration'),
+  $description: z.string().optional(),
+});
+
+/** Filter token — CSS filter chains (die-cut drop-shadows) */
+export const FilterTokenSchema = z.object({
+  $value: z.string().refine(
+    (val) => val === 'none' || val.includes('drop-shadow') || val.startsWith('{'),
+    { message: 'Invalid filter value. Expected "none", drop-shadow(...), or a token reference ({...}).' }
+  ),
+  $type: z.literal('filter'),
+  $description: z.string().optional(),
+});
+
+/** Transform token — CSS transform values */
+export const TransformTokenSchema = z.object({
+  $value: z.string().refine(
+    (val) => val === 'none' || /^(scale|translate|rotate|skew)/.test(val) || val.startsWith('{'),
+    { message: 'Invalid transform value.' }
+  ),
+  $type: z.literal('transform'),
   $description: z.string().optional(),
 });
 

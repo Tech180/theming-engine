@@ -129,6 +129,16 @@ export default {
       $value: 'rotation var(--duration-slow) linear infinite',
       $type: 'animation',
       $description: 'Spin/rotation loader animation shorthand'
-    }
+    },
+    'bounce-a': {
+      $value: 'bounce-a 1s infinite',
+      $type: 'animation',
+      $description: 'TTYD A-button bounce prompt',
+    },
+    'pulse-ring': {
+      $value: 'pulse-ring 1.5s infinite',
+      $type: 'animation',
+      $description: 'TTYD prompt ring pulse',
+    },
   },
 } satisfies TokenGroup;

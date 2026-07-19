@@ -18,7 +18,10 @@ export interface DesignToken {
     | 'cubicBezier'
     | 'shadow'
     | 'gradient'
-    | 'zIndex';
+    | 'zIndex'
+    | 'animation'
+    | 'filter'
+    | 'transform';
 
   /** Human-readable description of the token's purpose */
   $description?: string;

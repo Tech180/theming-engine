@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Valentine's Day Theme — Dark Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 0 15px rgba(255, 77, 109, 0.25)', $type: 'shadow' },
     radius:       { $value: '12px',                        $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(61, 18, 23, 0.8) 0%, rgba(43, 12, 16, 1) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('valentines'), $type: 'color' },
   },
 } satisfies ThemeContract;

@@ -7,7 +7,7 @@ import type { TransformedToken } from 'style-dictionary/types';
    ========================================= */
 
 /** Theme manifest for generating per-theme output files */
-const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'valentines', 'st-patricks', 'earth-day', 'independence', 'halloween', 'thanksgiving', 'christmas'] as const;
+const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'valentines', 'st-patricks', 'earth-day', 'independence', 'halloween', 'thanksgiving', 'christmas', 'paper', 'paper-mario', 'retro-80s', 'pixel', 'matrix', 'terminal', 'vaporwave', 'arcade'] as const;
 const APPEARANCES = ['light', 'dark'] as const;
 
 /** Filters tokens to only core domain (non-theme, non-component) */

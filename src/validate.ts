@@ -38,6 +38,24 @@ const THEME_FILES = [
   { name: 'independence/dark', path: './domains/brands/independence/dark' },
   { name: 'thanksgiving/light', path: './domains/brands/thanksgiving/light' },
   { name: 'thanksgiving/dark', path: './domains/brands/thanksgiving/dark' },
+  { name: 'paper/light', path: './domains/brands/paper/light' },
+  { name: 'paper/dark', path: './domains/brands/paper/dark' },
+  { name: 'paper-mario/light', path: './domains/brands/paper-mario/light' },
+  { name: 'paper-mario/dark', path: './domains/brands/paper-mario/dark' },
+  { name: 'retro-80s/light', path: './domains/brands/retro-80s/light' },
+  { name: 'retro-80s/dark', path: './domains/brands/retro-80s/dark' },
+  { name: 'pixel/light', path: './domains/brands/pixel/light' },
+  { name: 'pixel/dark', path: './domains/brands/pixel/dark' },
+  { name: 'matrix/light', path: './domains/brands/matrix/light' },
+  { name: 'matrix/dark', path: './domains/brands/matrix/dark' },
+  { name: 'terminal/light', path: './domains/brands/terminal/light' },
+  { name: 'terminal/dark', path: './domains/brands/terminal/dark' },
+  { name: 'vaporwave/light', path: './domains/brands/vaporwave/light' },
+  { name: 'vaporwave/dark', path: './domains/brands/vaporwave/dark' },
+  { name: 'arcade/light', path: './domains/brands/arcade/light' },
+  { name: 'arcade/dark', path: './domains/brands/arcade/dark' },
+  { name: '_shared/presentation-light', path: './domains/brands/_shared/presentation-light' },
+  { name: '_shared/presentation-dark', path: './domains/brands/_shared/presentation-dark' },
 ] as const;
 
 /** Core domain file manifest */
@@ -90,28 +108,31 @@ export async function validateAllTokens(): Promise<void> {
     try {
       const mod = await import(path);
       const tokens = mod.default ?? mod;
+      const isPresentationOnly = name.startsWith('_shared/presentation');
 
-      // Check contract compliance
-      const contractResult = ThemeContractSchema.safeParse(tokens);
-      if (!contractResult.success) {
-        const errors: ValidationError[] = contractResult.error.issues.map((issue) => ({
-          path: issue.path.join('.'),
-          message: issue.message,
-        }));
-        allErrors.push({ file: name, errors });
-        console.log(`  ❌ ${name} (contract violation: ${errors.length} error${errors.length > 1 ? 's' : ''})`);
-      } else {
-        // Also validate individual token values
-        const tokenErrors = validateTokenGroup(tokens);
-        const tokenCount = countTokens(tokens);
-        totalTokens += tokenCount;
-
-        if (tokenErrors.length > 0) {
-          allErrors.push({ file: name, errors: tokenErrors });
-          console.log(`  ❌ ${name} (${tokenErrors.length} token error${tokenErrors.length > 1 ? 's' : ''})`);
-        } else {
-          console.log(`  ✅ ${name} (${tokenCount} tokens)`);
+      if (!isPresentationOnly) {
+        // Check semantic contract compliance
+        const contractResult = ThemeContractSchema.safeParse(tokens);
+        if (!contractResult.success) {
+          const errors: ValidationError[] = contractResult.error.issues.map((issue) => ({
+            path: issue.path.join('.'),
+            message: issue.message,
+          }));
+          allErrors.push({ file: name, errors });
+          console.log(`  ❌ ${name} (contract violation: ${errors.length} error${errors.length > 1 ? 's' : ''})`);
+          continue;
         }
+      }
+
+      const tokenErrors = validateTokenGroup(tokens);
+      const tokenCount = countTokens(tokens);
+      totalTokens += tokenCount;
+
+      if (tokenErrors.length > 0) {
+        allErrors.push({ file: name, errors: tokenErrors });
+        console.log(`  ❌ ${name} (${tokenErrors.length} token error${tokenErrors.length > 1 ? 's' : ''})`);
+      } else {
+        console.log(`  ✅ ${name} (${tokenCount} tokens)`);
       }
     } catch (err) {
       allErrors.push({

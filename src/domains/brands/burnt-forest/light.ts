@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Burnt Forest Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 4px 15px rgba(255, 85, 0, 0.08)', $type: 'shadow' },
     radius:       { $value: '6px',                              $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(30, 10, 5, 0.4) 0%, rgba(0, 0, 0, 0) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('burnt-forest'), $type: 'color' },
   },
 } satisfies ThemeContract;

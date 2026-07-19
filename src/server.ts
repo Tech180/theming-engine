@@ -129,7 +129,15 @@ export const server = Bun.serve({
         { theme: 'st-patricks', appearances: ['light', 'dark'] },
         { theme: 'earth-day', appearances: ['light', 'dark'] },
         { theme: 'independence', appearances: ['light', 'dark'] },
-        { theme: 'thanksgiving', appearances: ['light', 'dark'] }
+        { theme: 'thanksgiving', appearances: ['light', 'dark'] },
+        { theme: 'paper', appearances: ['light', 'dark'] },
+        { theme: 'paper-mario', appearances: ['light', 'dark'] },
+        { theme: 'retro-80s', appearances: ['light', 'dark'] },
+        { theme: 'pixel', appearances: ['light', 'dark'] },
+        { theme: 'matrix', appearances: ['light', 'dark'] },
+        { theme: 'terminal', appearances: ['light', 'dark'] },
+        { theme: 'vaporwave', appearances: ['light', 'dark'] },
+        { theme: 'arcade', appearances: ['light', 'dark'] },
       ];
       return jsonResponse('Success', 200, themes, correlationId);
     }
@@ -140,7 +148,7 @@ export const server = Bun.serve({
     const themeMatch = path.match(/^\/api\/themes\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)(?:\/(css|scss))?$/);
     if (req.method === 'GET' && themeMatch) {
       const [_, theme, appearance, formatType] = themeMatch;
-      const validThemes = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'halloween', 'christmas', 'valentines', 'st-patricks', 'earth-day', 'independence', 'thanksgiving'];
+      const validThemes = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'halloween', 'christmas', 'valentines', 'st-patricks', 'earth-day', 'independence', 'thanksgiving', 'paper', 'paper-mario', 'retro-80s', 'pixel', 'matrix', 'terminal', 'vaporwave', 'arcade'];
       const validAppearances = ['light', 'dark'];
 
       if (!validThemes.includes(theme) || !validAppearances.includes(appearance)) {

@@ -48,5 +48,29 @@ export interface ThemeContract {
 
     /** Background gradient overlay */
     bgGradient: DesignToken;
+
+    /** Error text color */
+    error: DesignToken;
+
+    /** Error background color */
+    errorBg: DesignToken;
+
+    /** Error border color */
+    errorBorder: DesignToken;
+
+    /** Success text color */
+    success: DesignToken;
+
+    /** Success background color */
+    successBg: DesignToken;
+
+    /** Warning text color */
+    warning: DesignToken;
+
+    /** Warning background color */
+    warningBg: DesignToken;
+
+    /** Primary color as RGB values (e.g. "94, 106, 210") */
+    primaryRgb: DesignToken;
   };
 }

@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Default Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '0 4px 30px rgba(0, 0, 0, 0.03)',  $type: 'shadow' },
     radius:       { $value: '8px',                              $type: 'dimension' },
     bgGradient:   { $value: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(94, 106, 210, 0.15), rgba(255, 255, 255, 0))', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('default'), $type: 'color' },
   },
 } satisfies ThemeContract;

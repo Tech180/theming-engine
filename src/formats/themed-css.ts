@@ -16,13 +16,23 @@ function parseThemeFromPath(filePath: string): { theme: string; appearance: stri
   return { theme: match[1]!, appearance: match[2]! };
 }
 
+/**
+ * Extracts theme name and appearance from build output filename.
+ * Expected pattern: themes/{theme}-{appearance}.css
+ */
+function parseThemeFromDestination(destination: string): { theme: string; appearance: string } | null {
+  const match = destination.match(/themes\/_?(.+)-(light|dark)\.(css|scss)$/);
+  if (!match) return null;
+  return { theme: match[1]!, appearance: match[2]! };
+}
+
 export function themedCssFormat({ dictionary, file }: FormatFnArguments) {
   const tokens = dictionary.allTokens;
   if (tokens.length === 0) return '';
 
-  // Determine theme/appearance from first token's file path
-  const firstToken = tokens[0]!;
-  const themeInfo = parseThemeFromPath(firstToken.filePath);
+  const themeInfo =
+    parseThemeFromDestination(file.destination) ??
+    parseThemeFromPath(tokens[0]!.filePath);
 
   // Build selector
   let selector: string;

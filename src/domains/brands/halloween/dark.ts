@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Halloween Theme — Dark Appearance (Pantone approximation)
@@ -23,5 +25,7 @@ export default {
     shadow:       { $value: '0 0 15px rgba(254, 80, 0, 0.3)', $type: 'shadow' },
     radius:       { $value: '8px',                         $type: 'dimension' },
     bgGradient:   { $value: 'linear-gradient(180deg, rgba(27, 37, 48, 0.8) 0%, rgba(16, 24, 32, 1) 100%)', $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('halloween'), $type: 'color' },
   },
 } satisfies ThemeContract;

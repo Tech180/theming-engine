@@ -1,4 +1,5 @@
 import StyleDictionary from 'style-dictionary';
+import { outputReferencesFilter } from 'style-dictionary/utils';
 import { pxToRemTransform } from './transforms/px-to-rem';
 import { hexAlphaTransform, rgbaToHexTransform } from './transforms/color-modifiers';
 import { themedCssFormat } from './formats/themed-css';
@@ -17,7 +18,7 @@ export { compileDynamicThemeCss } from './dynamic-compiler';
    that share the same semantic key names.
    ========================================= */
 
-const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'valentines', 'st-patricks', 'earth-day', 'independence', 'halloween', 'thanksgiving', 'christmas'] as const;
+const THEMES = ['default', 'cyberpunk', 'neon', 'mystic', 'burnt-forest', 'valentines', 'st-patricks', 'earth-day', 'independence', 'halloween', 'thanksgiving', 'christmas', 'paper', 'paper-mario', 'retro-80s', 'pixel', 'matrix', 'terminal', 'vaporwave', 'arcade'] as const;
 const APPEARANCES = ['light', 'dark'] as const;
 
 /** Shared hooks for all SD instances */
@@ -141,6 +142,7 @@ export async function build() {
     for (const appearance of APPEARANCES) {
       const themeSources = [
         ...CORE_SOURCES,
+        `src/domains/brands/_shared/presentation-${appearance}.ts`,
         `src/domains/brands/${theme}/${appearance}.ts`,
       ];
 
@@ -225,7 +227,7 @@ export async function build() {
             destination: 'components.css',
             format: 'css/variables',
             filter: (token) => token.filePath.includes('components/'),
-            options: { outputReferences: true },
+            options: { outputReferences: false },
           },
         ],
       },
@@ -237,7 +239,7 @@ export async function build() {
             destination: '_components.scss',
             format: 'themed-scss',
             filter: (token) => token.filePath.includes('components/'),
-            options: { outputReferences: true },
+            options: { outputReferences: outputReferencesFilter },
           },
         ],
       },

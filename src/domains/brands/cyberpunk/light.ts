@@ -1,4 +1,6 @@
 import type { ThemeContract } from '@/types/theme-contract.interface';
+import { semanticStatus } from '@/domains/shared/semantic-status';
+import { getPrimaryRgb } from '@/domains/shared/primary-rgb';
 
 /* =========================================
    Cyberpunk Theme — Light Appearance
@@ -21,5 +23,7 @@ export default {
     shadow:       { $value: '3px 3px 0px #000000',           $type: 'shadow' },
     radius:       { $value: '0px',                           $type: 'dimension' },
     bgGradient:   { $value: 'none',                          $type: 'gradient' },
+    ...semanticStatus,
+    primaryRgb:   { $value: getPrimaryRgb('cyberpunk'), $type: 'color' },
   },
 } satisfies ThemeContract;

@@ -9,6 +9,7 @@ export default {
   spacing: {
     xs:   { $value: '4px',  $type: 'dimension' },
     sm:   { $value: '8px',  $type: 'dimension' },
+    base: { $value: '12px', $type: 'dimension' },
     md:   { $value: '16px', $type: 'dimension' },
     lg:   { $value: '24px', $type: 'dimension' },
     xl:   { $value: '32px', $type: 'dimension' },
